@@ -144,6 +144,14 @@ describe('Post controller', () => {
 
         //post id to be searched
         const post_id = "507asdghajsdhjgas";
+        var req = {
+            body: {
+                author: 'stswenguser',
+                title: 'My first test post',
+                content: 'Random content'
+            },
+            post_id: post_id
+        };
 
         beforeEach(() => {
             // before every test case setup first
@@ -161,8 +169,8 @@ describe('Post controller', () => {
         it('should return the searched post object', () => {
             expectedResult = {
                 _id: post_id,
-                title: 'My first test post (Edited)',
-                content: 'Not Random content',
+                title: 'My first test post',
+                content: 'Random content',
                 author: 'stswenguser',
                 date: Date.now()
             };
