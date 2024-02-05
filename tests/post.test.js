@@ -217,10 +217,11 @@ describe('Post controller', () => {
                    } 
             ];
 
-            findPostStub = sinon.stub(PostModel, "getAllPosts").yields(null, expectedResult);
+            findPostStub = sinon.stub(PostModel, 'findAllPosts').yields(null, expectedResult);
+            
             PostController.getAllPosts(req, res);
 
-            sinon.assert.calledOnce(PostModel.getAllPosts);
+            sinon.assert.calledOnce(PostModel.findAllPosts);
 
             sinon.assert.calledWith(res.json, sinon.match.array.deepEquals(expectedResult))
         });
