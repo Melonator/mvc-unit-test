@@ -17,3 +17,13 @@ exports.createPost = (obj, next) => {
         next(err, post)
     }) 
 }
+
+
+exports.updatePost = (obj, next) => {
+
+    const post = new Post(obj.body);
+
+    post.updateOne({ post_id: obj.post_id}, function(err, post) {
+        next(err, post)
+    })
+}

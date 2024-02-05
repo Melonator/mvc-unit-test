@@ -117,7 +117,7 @@ describe('Post controller', () => {
             PostController.update(req, res);
             
             //Make sure post_id and req.body is passed
-            sinon.assert.calledWith(PostModel.updatePost, post_id, req.body);
+            sinon.assert.calledWith(PostModel.updatePost, req);
 
             //Make sure that the result matches the request
             sinon.assert.calledWith(res.json, sinon.match({ title: req.body.title }));
@@ -131,7 +131,7 @@ describe('Post controller', () => {
             PostController.update(req, res);
 
             //Make sure post_id and req.body is passed
-            sinon.assert.calledWith(PostModel.updatePost, post_id, req.body);
+            sinon.assert.calledWith(PostModel.updatePost, req);
             
             //Make sure that an error was raised
             sinon.assert.calledWith(res.status, 500);
