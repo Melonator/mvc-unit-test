@@ -178,13 +178,10 @@ describe('Post controller', () => {
             findPostStub = sinon.stub(PostModel, 'findPost').yields(null, expectedResult);
 
 
-            //Run the post controller
             PostController.findPost(req, res);
             
-            //Make sure req or req.body is passed (depending on the model and controller implementation)
             sinon.assert.calledWith(PostModel.findPost, req);
 
-            //Make sure that the result matches the request
             sinon.assert.calledWith(res.json, sinon.match({ title: req.body.title }));
             sinon.assert.calledWith(res.json, sinon.match({ content: req.body.content }));
             sinon.assert.calledWith(res.json, sinon.match({ author: req.body.author }));
@@ -195,12 +192,37 @@ describe('Post controller', () => {
 
             PostController.findPost(req, res);
 
-            //Make sure req or req.body is passed (depending on the model and controller implementation)
             sinon.assert.calledWith(PostModel.findPost, req);
             
-            //Make sure that an error was raised
             sinon.assert.calledWith(res.status, 500);
             sinon.assert.calledOnce(res.status(500).end);
+        });
+
+        it('should get all posts', () => {
+            expectedResult = [
+                   {
+                    title: 'My first test post',
+                    content: 'Random content',
+                    author: 'stswenguser',
+                   },
+                   {
+                    title: 'My second test post',
+                    content: 'Random content',
+                    author: 'stswenguser',
+                   },
+                   {
+                    title: 'My third test post',
+                    content: 'Random content',
+                    author: 'stswenguser',
+                   } 
+            ];
+
+            findPostStub = sinon.stub(PostModel, "getAllPosts").yields(null, expectedResult);
+            PostController.getAllPosts(req, res);
+
+            sinon.assert.calledOnce(PostModel.getAllPosts);
+
+            sinon.assert.calledWith(res.json, sinon.match.array.deepEquals(expectedResult))
         });
     })
 });
